@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package papi;
+
+import "google/api/annotations.proto";
+
+option go_package = "/papi";
+
+service Project {
+  rpc CreateProject (CreateProjectRequest) returns (CreateProjectReply) {
+    option (google.api.http) = {
+      post: "/api/v1/project/create"
+    };
+  }
+  rpc GetProject (GetProjectRequest) returns (GetProjectReply) {
+    option (google.api.http) = {
+      get: "/api/v1/project/{id}"
+    };
+  }
+  rpc ListProject (ListProjectRequest) returns (ListProjectReply) {
+    option (google.api.http) = {
+      get: "/api/v1/project"
+    };
+  }
+  rpc RemoveProject (RemoveProjectRequest) returns (RemoveProjectReply) {
+    option (google.api.http) = {
+      post: "/api/v1/project/remove"
+    };
+  }
+  
+}
+
+message ProjectItem {
+  uint32 id = 1;
+  string name = 2;
+  string title = 3;
+}
+
+message CreateProjectRequest {
+  string name = 1;
+  string title = 2;
+}
+
+message CreateProjectReply {
+  uint32 id = 1;
+}
+
+message GetProjectRequest {
+  uint32 id = 1;
+}
+
+message GetProjectReply {
+  string message = 1;
+}
+
+message ListProjectRequest {
+  
+}
+
+message ListProjectReply {
+  repeated ProjectItem projects = 1;
+}
+
+message RemoveProjectRequest {
+  uint32 id = 1;
+}
+
+message RemoveProjectReply {
+  uint32 id = 1;
+}
